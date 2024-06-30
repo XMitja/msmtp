@@ -4397,6 +4397,9 @@ exit:
     free(errstr);
     if (errmsg)
     {
+        const int status = smtp_msg_status(errmsg);
+        if (status == 250) error_code = 50;
+        else if (status == 421) error_code = 21;
         list_xfree(errmsg, free);
     }
 
